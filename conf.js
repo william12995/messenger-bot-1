@@ -1,6 +1,0 @@
-var conf = module.exports = {
-    FB_MESSAGE_URL: 'http://m.me/575623689313399',
-    VERIFY_TOKEN: 'inforchat',
-    PROFILE_TOKEN: 'EAAUnePl06eUBAFJLr6TbZBywn0VKr51WPTzYAZBw9EZAK0yZASnbXc6ymGRjEDKmwihd6JTz57iM2ZA5hP2IhqYwZBGo2uYjuuZB9ZBvxjNtOOVWIZBrq8fiqezQIY7bmHSoA7D1ubUULbn6p91AiPHz7cDfxoKoDTuOYX121H4ixFwZDZD',
-    PORT: '1209'
-};

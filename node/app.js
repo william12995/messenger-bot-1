@@ -70,6 +70,7 @@ app.get('/webhook', function(req, res) {
     res.status(200).send(req.query['hub.challenge']);
   } else {
     console.error("Failed validation. Make sure the validation tokens match.");
+    console.log(req.query['hub.verify_token']);
     res.sendStatus(403);          
   }  
 });

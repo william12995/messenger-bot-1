@@ -1,6 +1,6 @@
 {
-    "appSecret": "",
-    "pageAccessToken": "",
-    "validationToken": "",
-    "serverURL": ""
+    "appSecret": "945560e5d2895eb074e8746f146601d4",
+    "pageAccessToken": "EAAUnePl06eUBAMnZAGZCxDQkHEOAoTLZAIhCNfASuWtIuYPD9qelLl3kxXxTZCMQsEUk0UHDrLAMZBAKaJe4ZCFyZAWWNmdZBDXg18OuGGQfcIlQP2m0EeBjS133YlJzUJmREZCbIGsWIiLZByZBipgAkKsZCIooFlmdtVKTsnZBetMnMLQZDZD",
+    "validationToken": "inforchat",
+    "serverURL": "https://william.infor.org/"
 }

@@ -26,6 +26,7 @@ function handleVerify(req, res, next) {
         return res.send(req.query['hub.challenge']);
     }
     res.send('Validation failed, Verify token mismatch');
+    console.log(req.query['hub.verify_token']);
 }
 
 function receiveMessage(req, res, next) {

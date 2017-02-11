@@ -17,8 +17,8 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
-  mongoose = require('mongoose');
-  colors = require('colors');
+var  mongoose = require('mongoose');
+var  colors = require('colors');
 
 require('./db');
 var Schema = mongoose.Schema;

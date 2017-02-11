@@ -31,7 +31,7 @@ function adduser(event){
   var senderID = event.sender.id;
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function() {
+  db.once('open', function(senderID) {
   console.log('mongoose opened!');
   var userSchema = new mongoose.Schema({
       id:String,
@@ -44,7 +44,7 @@ function adduser(event){
     if(err) console.log(err);
     else console.log(doc.name + ", password - " + doc.password);
   });*/
-
+  console.log(senderID);
   var list = new User({id:senderID});
   list.save(function(err, doc){
     if(err)console.log(err);
@@ -53,8 +53,6 @@ function adduser(event){
 });
 
 }
-
-require('./db');
 
 
 var app = express();

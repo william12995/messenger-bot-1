@@ -25,14 +25,14 @@ var  colors = require('colors');
 function adduser(event){
 
   var  mongoose = require('mongoose');
-  
+  mongoose.createConnection('mongodb://localhost/local');
 
   console.log('mongoose opening!');
   console.log(event.sender.id);
 
   var senderID = event.sender.id;
-  var db = mongoose.createConnection('mongodb://localhost/local');
-  db.on('error', console.error.bind(console, 'connection error:'));
+  var db = mongoose.connection;
+  //db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function(senderID) {
   console.log('mongoose opened!');
   var userSchema = new mongoose.Schema({

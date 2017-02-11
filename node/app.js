@@ -28,12 +28,13 @@ function adduser(event){
   //mongoose.createConnection('mongodb://localhost/local');
 
   console.log('mongoose opening!');
-  console.log(event.sender.id);
-
   var senderID = event.sender.id;
+  console.log(senderID);
+
+  
   var db = mongoose.createConnection('mongodb://localhost/local');
   db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function(senderID) {
+  db.once('open', function() {
   console.log('mongoose opened!');
   console.log(senderID);
     var userSchema = new mongoose.Schema({

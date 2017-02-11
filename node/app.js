@@ -31,7 +31,7 @@ function adduser(event){
   console.log(event.sender.id);
 
   var senderID = event.sender.id;
-  var db = mongoose.craeteConnect('mongodb://localhost/local');
+  var db = mongoose.createConnection('mongodb://localhost/local');
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function(senderID) {
   console.log('mongoose opened!');

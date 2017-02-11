@@ -27,14 +27,15 @@ mongoose.connect('mongodb://localhost/local');
 
 
 function adduser(event){
-  
+  console.log('mongoose opening!');
+  console.log(event.sender.id);
   var senderID = event.sender.id;
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function(senderID) {
   console.log('mongoose opened!');
   var userSchema = new mongoose.Schema({
-      id:String,
+      id : String
     }, 
     {collection: "fb_bot"}
     );
@@ -44,7 +45,7 @@ function adduser(event){
     if(err) console.log(err);
     else console.log(doc.name + ", password - " + doc.password);
   });*/
-  console.log(senderID);
+  console.log("CHECK");
   var list = new User({id:senderID});
   list.save(function(err, doc){
     if(err)console.log(err);
@@ -288,7 +289,7 @@ function receivedMessage(event) {
   var quickReply = message.quick_reply;
 
   adduser(senderID);
-  
+
   if (isEcho) {
     // Just logging message echoes to console
     console.log("Received echo for message %s and app %d with metadata %s", 

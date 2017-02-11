@@ -22,7 +22,7 @@ var  colors = require('colors');
 
 require('./db');
 var Schema = mongoose.Schema;
-var fb = mongoose.model('fb');
+var fb = mongoose.model('fb_bot');
 
 var app = express();
 app.set('port', process.env.PORT || 1209);

@@ -51,8 +51,13 @@ function adduser(event){
     console.log("CHECK");
     // var list = new User();
     User.create({ id: senderID}, function(err, user) {
-      if (err) console.log(err);
-      else user.save();
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log("User saved.");
+        user.save();
+      } 
     });
     // list.save(function(err, doc){
     //   if(err)console.log(err);

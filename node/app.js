@@ -17,6 +17,12 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
+  mongoose = require('mongoose');
+  colors = require('colors');
+
+require('./db');
+var Schema = mongoose.Schema;
+var fb = mongoose.model('fb');
 
 var app = express();
 app.set('port', process.env.PORT || 1209);
@@ -55,6 +61,8 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   console.error("Missing config values");
   process.exit(1);
 }
+
+
 
 /*
  * Use your own validation token. Check that the token used in the Webhook 
@@ -173,6 +181,30 @@ function verifyRequestSignature(req, res, buf) {
       throw new Error("Couldn't validate the request signature.");
     }
   }
+}
+
+
+global.fb_bot = {};
+
+
+function adduser(event){
+  
+  var senderID = event.sender.id;
+
+  fb.findOne({
+    id :senderId
+  }).exec(function(err,result) {
+    if(result){
+      console.log('Failed to get userid');
+
+    }
+    new fb({
+
+    }).save(function(err,r){
+        if (err) console.log(err);
+    });
+
+  });
 }
 
 /*
@@ -316,6 +348,8 @@ function receivedMessage(event) {
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
+
+  adduser();
 }
 
 

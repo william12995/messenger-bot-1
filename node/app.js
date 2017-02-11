@@ -42,7 +42,7 @@ function adduser(event){
       }, 
       {collection: "fb_bot"}
       );
-    var User = mongoose.model('fb_bot', userSchema);
+    var User = mongoose.model('User', userSchema);
 
     /*User.findOne({name:"WangEr"}, function(err, doc){
       if(err) console.log(err);

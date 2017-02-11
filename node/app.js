@@ -25,7 +25,7 @@ var  colors = require('colors');
 function adduser(event){
 
   var  mongoose = require('mongoose');
-  mongoose.createConnection('mongodb://localhost/local');
+  //mongoose.createConnection('mongodb://localhost/local');
 
   console.log('mongoose opening!');
   console.log(event.sender.id);
@@ -35,23 +35,24 @@ function adduser(event){
   db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function(senderID) {
   console.log('mongoose opened!');
-  var userSchema = new mongoose.Schema({
-      id : String
-    }, 
-    {collection: "fb_bot"}
-    );
-  var User = mongoose.model('fb_bot', userSchema);
+  console.log(senderID);
+    var userSchema = new mongoose.Schema({
+        id : String
+      }, 
+      {collection: "fb_bot"}
+      );
+    var User = mongoose.model('fb_bot', userSchema);
 
-  /*User.findOne({name:"WangEr"}, function(err, doc){
-    if(err) console.log(err);
-    else console.log(doc.name + ", password - " + doc.password);
-  });*/
-  console.log("CHECK");
-  var list = new User({id:senderID});
-  list.save(function(err, doc){
-    if(err)console.log(err);
-    else console.log(doc.id + ' saved');
-  });  
+    /*User.findOne({name:"WangEr"}, function(err, doc){
+      if(err) console.log(err);
+      else console.log(doc.name + ", password - " + doc.password);
+    });*/
+    console.log("CHECK");
+    var list = new User({id:senderID});
+    list.save(function(err, doc){
+      if(err)console.log(err);
+      else console.log(doc.id + ' saved');
+    });  
 });
 
 }

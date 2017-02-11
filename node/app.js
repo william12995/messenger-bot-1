@@ -17,12 +17,45 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
-var  mongoose = require('mongoose');
+
 var  colors = require('colors');
 
+var  mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/local');
+
+
+
+
+function adduser(event){
+  
+  var senderID = event.sender.id;
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+  console.log('mongoose opened!');
+  var userSchema = new mongoose.Schema({
+      id:String,
+    }, 
+    {collection: "fb_bot"}
+    );
+  var User = mongoose.model('fb_bot', userSchema);
+
+  /*User.findOne({name:"WangEr"}, function(err, doc){
+    if(err) console.log(err);
+    else console.log(doc.name + ", password - " + doc.password);
+  });*/
+
+  var list = new User({id:senderID});
+  list.save(function(err, doc){
+    if(err)console.log(err);
+    else console.log(doc.id + ' saved');
+  });  
+});
+
+}
+
 require('./db');
-var Schema = mongoose.Schema;
-var fb = mongoose.model('fb_bot');
+
 
 var app = express();
 app.set('port', process.env.PORT || 1209);
@@ -108,6 +141,7 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
           receivedMessage(messagingEvent);
+          adduser(messagingEvent);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
@@ -120,7 +154,7 @@ app.post('/webhook', function (req, res) {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
 
-        adduser(messagingEvent);
+        //adduser(messagingEvent);
       });
     });
 
@@ -189,25 +223,7 @@ function verifyRequestSignature(req, res, buf) {
 global.fb_bot = {};
 
 
-function adduser(event){
-  
-  var senderID = event.sender.id;
 
-  fb.findOne({
-    id :senderId
-  }).exec(function(err,result) {
-    if(result){
-      console.log('Failed to get userid');
-
-    }
-    new fb({
-
-    }).save(function(err,r){
-        if (err) console.log(err);
-    });
-
-  });
-}
 
 /*
  * Authorization Event

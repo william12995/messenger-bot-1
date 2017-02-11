@@ -55,6 +55,7 @@ function adduser(event){
 }
 
 
+
 var app = express();
 app.set('port', process.env.PORT || 1209);
 app.set('view engine', 'ejs');
@@ -139,7 +140,7 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
           receivedMessage(messagingEvent);
-          //adduser(messagingEvent);
+          
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
@@ -218,7 +219,7 @@ function verifyRequestSignature(req, res, buf) {
 }
 
 
-global.fb_bot = {};
+//global.fb_bot = {};
 
 
 
@@ -286,6 +287,8 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
   var quickReply = message.quick_reply;
 
+  adduser(senderID);
+  
   if (isEcho) {
     // Just logging message echoes to console
     console.log("Received echo for message %s and app %d with metadata %s", 

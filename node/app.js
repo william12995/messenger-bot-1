@@ -119,6 +119,8 @@ app.post('/webhook', function (req, res) {
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
+
+        adduser(messagingEvent);
       });
     });
 
@@ -348,8 +350,6 @@ function receivedMessage(event) {
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
-
-  adduser();
 }
 
 

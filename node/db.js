@@ -5,7 +5,7 @@ var debug = require('debug')('messenger-bot-1:server');
 var config = require('./config.json');
 var colors = require('colors');
 
-var FB = new Schema(
+var fB = new Schema(
     {
         id : String
     }
@@ -13,7 +13,7 @@ var FB = new Schema(
 
 
 
-mongoose.model('fb', FB);
+mongoose.model('fb', fB);
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongodb, function (err) {
     if (err) {

@@ -20,15 +20,16 @@ const
 
 var  colors = require('colors');
 
-var  mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/local');
-
-
 
 
 function adduser(event){
+
+  var  mongoose = require('mongoose');
+  mongoose.connect('mongodb://localhost/local');
+
   console.log('mongoose opening!');
   console.log(event.sender.id);
+
   var senderID = event.sender.id;
   var db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error:'));
@@ -141,7 +142,7 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
           receivedMessage(messagingEvent);
-          
+          adduser(messagingEvent);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
@@ -288,7 +289,7 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
   var quickReply = message.quick_reply;
 
-  adduser(senderID);
+  
 
   if (isEcho) {
     // Just logging message echoes to console

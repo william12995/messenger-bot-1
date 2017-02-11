@@ -32,7 +32,7 @@ function adduser(event){
 
   var senderID = event.sender.id;
   var db = mongoose.connection;
-  //db.on('error', console.error.bind(console, 'connection error:'));
+  db.on('error', console.error.bind(console, 'connection error:'));
   db.once('open', function(senderID) {
   console.log('mongoose opened!');
   var userSchema = new mongoose.Schema({

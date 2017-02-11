@@ -49,10 +49,10 @@ function adduser(event){
       else console.log(doc.name + ", password - " + doc.password);
     });*/
     console.log("CHECK");
-    var list = new User();
-    list.create({ id: senderID}, function(err, listtt) {
+    // var list = new User();
+    User.create({ id: senderID}, function(err, user) {
       if (err) console.log(err);
-      else listtt.save();
+      else user.save();
     });
     // list.save(function(err, doc){
     //   if(err)console.log(err);

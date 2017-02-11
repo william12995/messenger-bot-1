@@ -49,11 +49,15 @@ function adduser(event){
       else console.log(doc.name + ", password - " + doc.password);
     });*/
     console.log("CHECK");
-    var list = new User({id:senderID});
-    list.save(function(err, doc){
-      if(err)console.log(err);
-      else console.log(doc.id + ' saved');
-    });  
+    var list = new User();
+    list.create({ id: senderID}, function(err, listtt) {
+      if (err) console.log(err);
+      else listtt.save();
+    });
+    // list.save(function(err, doc){
+    //   if(err)console.log(err);
+    //   else console.log(doc.id + ' saved');
+    // });  
 });
 
 }

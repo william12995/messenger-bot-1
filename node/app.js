@@ -901,7 +901,7 @@ function callSendAPI(messageData) {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
-      var messageId = JSONbig.parse(body.message_id);
+      var messageId = body.message_id;
 
       if (messageId) {
         console.log("Successfully sent message with id %s to recipient %s", 
@@ -911,6 +911,7 @@ function callSendAPI(messageData) {
         recipientId);
       }
     } else {
+      console.log(body.message_id);
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
     }
   });  

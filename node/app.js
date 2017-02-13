@@ -17,6 +17,7 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
+  JSONbig = require('json-bigint');
 
 var  colors = require('colors');
 
@@ -90,8 +91,11 @@ function adduser(event){
 var app = express();
 app.set('port', process.env.PORT || 1209);
 app.set('view engine', 'ejs');
-app.use(bodyParser.json({ verify: verifyRequestSignature }));
-app.use(express.static('public'));
+// app.use(bodyParser.json({ verify: verifyRequestSignature }));
+// app.use(express.static('public'));
+
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.text({ type: 'application/json' }))
 
 /*
  * Be sure to setup your config values before running this code. You can 
@@ -155,7 +159,7 @@ app.get('/webhook', function(req, res) {
  *
  */
 app.post('/webhook', function (req, res) {
-  var data = req.body;
+  var data = JSONbig.parse(req.body);
 
   // Make sure this is a page subscription
   if (data.object == 'page') {

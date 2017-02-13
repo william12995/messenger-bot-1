@@ -23,79 +23,16 @@ var  colors = require('colors');
 
 
 
-function adduser(event){
-
-  var  mongoose = require('mongoose');
-  //mongoose.createConnection('mongodb://localhost/local');
-
-  console.log('mongoose opening!');
-  var senderID = event.sender.id;
-  console.log(senderID);
-
-  
-  var db = mongoose.createConnection('mongodb://localhost/local');
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function() {
-  console.log('mongoose opened!');
-  console.log(senderID);
-    var userSchema = new mongoose.Schema({
-        id : String
-      }, 
-      {collection: "fb_bot"}
-      );
-    var User = mongoose.model('User', userSchema);
-
-    /*User.findOne({name:"WangEr"}, function(err, doc){
-      if(err) console.log(err);
-      else console.log(doc.name + ", password - " + doc.password);
-    });*/
-    console.log("CHECK");
-
-    User.findOne({
-      id :senderID
-    }).exec(function(err,exist){
-      if (exist){
-        console.log('ID have already save');
-        return;
-      }
-
-      new User({
-          id : senderID
-      }).save(function(err,r){
-          console.log('failed to save');
-          if (err) console.log(err);
-
-      });  
-    });
-    /*var list = new User();
-    list.save({ id: senderID}, function(err, user) {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        console.log("User saved.");
-        user.save();
-      } 
-    });
-
-     list.save(function(err, doc){
-       if(err)console.log(err);
-       else console.log(doc.id + ' saved');
-     });  */
-});
-
-}
-
 
 
 var app = express();
 app.set('port', process.env.PORT || 1209);
 app.set('view engine', 'ejs');
-// app.use(bodyParser.json({ verify: verifyRequestSignature }));
-// app.use(express.static('public'));
+app.use(bodyParser.json({ verify: verifyRequestSignature }));
+app.use(express.static('public'));
 
-app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.text({ type: 'application/json' }))
+// app.use(express.static(__dirname + '/public'));
+// app.use(bodyParser.text({ type: 'application/json' }))
 
 /*
  * Be sure to setup your config values before running this code. You can 

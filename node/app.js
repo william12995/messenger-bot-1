@@ -898,11 +898,11 @@ function callSendAPI(messageData) {
     method: 'POST',
     json: messageData
 
-  }, function (error, response, body) {
-    console.log(body.message_id);
+  }, function (error, response, body,req) {
+    console.log(req.body.message_id);
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
-      var messageId = body.message_id;
+      var messageId = req.body.message_id;
 
       if (messageId) {
         console.log("Successfully sent message with id %s to recipient %s", 

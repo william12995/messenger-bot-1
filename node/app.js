@@ -62,6 +62,7 @@ function adduser(event){
           id : senderID
       }).save(function(err,r){
           if (err) console.log(err);
+          console.log('failed to save');
       });  
     });
     /*var list = new User();

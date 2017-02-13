@@ -898,7 +898,7 @@ function callSendAPI(messageData) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       console.log(body.recipient_id);
-      var messageId = "1666089510084485";
+      var messageId = 1666089510084485;
       //body.message_id;
       console.log(body.message_id);
 

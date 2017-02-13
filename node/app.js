@@ -50,7 +50,7 @@ function adduser(event){
     });*/
     console.log("CHECK");
 
-    User.findOne({
+    /*User.findOne({
       id :senderID
     }).exec(function(err,exist){
       if (exist){
@@ -63,8 +63,8 @@ function adduser(event){
       }).save(function(err,r){
           if (err) console.log(err);
       });  
-    });
-    /*var list = new User();
+    });*/
+    var list = new User();
     list.save({ id: senderID}, function(err, user) {
       if (err) {
         console.log(err);
@@ -73,7 +73,7 @@ function adduser(event){
         console.log("User saved.");
         user.save();
       } 
-    });*/
+    });
 
     // list.save(function(err, doc){
     //   if(err)console.log(err);

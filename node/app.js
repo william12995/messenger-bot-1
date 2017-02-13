@@ -17,7 +17,7 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
-  JSONbig = require('json-bigint');
+var JSONbig = require('json-bigint');
 
 var  colors = require('colors');
 

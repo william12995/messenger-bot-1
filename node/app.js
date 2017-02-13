@@ -18,6 +18,75 @@ const
   https = require('https'),  
   request = require('request');
 
+var  colors = require('colors');
+
+
+
+function adduser(event){
+
+  var  mongoose = require('mongoose');
+  //mongoose.createConnection('mongodb://localhost/local');
+
+  console.log('mongoose opening!');
+  var senderID = event.sender.id;
+  console.log(senderID);
+
+  
+  var db = mongoose.createConnection('mongodb://localhost/local');
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', function() {
+  console.log('mongoose opened!');
+  console.log(senderID);
+    var userSchema = new mongoose.Schema({
+        id : String
+      }, 
+      {collection: "fb_bot"}
+      );
+    var User = mongoose.model('User', userSchema);
+
+    /*User.findOne({name:"WangEr"}, function(err, doc){
+      if(err) console.log(err);
+      else console.log(doc.name + ", password - " + doc.password);
+    });*/
+    console.log("CHECK");
+
+    User.findOne({
+      id :senderID
+    }).exec(function(err,exist){
+      if (exist){
+        console.log('ID have already save');
+        return;
+      }
+
+      new User({
+          id : senderID
+      }).save(function(err,r){
+          console.log('failed to save');
+          if (err) console.log(err);
+
+      });  
+    });
+    /*var list = new User();
+    list.save({ id: senderID}, function(err, user) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log("User saved.");
+        user.save();
+      } 
+    });
+
+     list.save(function(err, doc){
+       if(err)console.log(err);
+       else console.log(doc.id + ' saved');
+     });  */
+});
+
+}
+
+
+
 var app = express();
 app.set('port', process.env.PORT || 1209);
 app.set('view engine', 'ejs');
@@ -56,6 +125,8 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
   process.exit(1);
 }
 
+
+
 /*
  * Use your own validation token. Check that the token used in the Webhook 
  * setup is the same token used here.
@@ -64,10 +135,13 @@ if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+
+    console.log(req.query['hub.verify_token']);
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
     console.error("Failed validation. Make sure the validation tokens match.");
+    console.log(req.query['hub.verify_token']);
     res.sendStatus(403);          
   }  
 });
@@ -97,6 +171,7 @@ app.post('/webhook', function (req, res) {
           receivedAuthentication(messagingEvent);
         } else if (messagingEvent.message) {
           receivedMessage(messagingEvent);
+          adduser(messagingEvent);
         } else if (messagingEvent.delivery) {
           receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
@@ -108,6 +183,8 @@ app.post('/webhook', function (req, res) {
         } else {
           console.log("Webhook received unknown messagingEvent: ", messagingEvent);
         }
+
+        //adduser(messagingEvent);
       });
     });
 
@@ -172,6 +249,12 @@ function verifyRequestSignature(req, res, buf) {
   }
 }
 
+
+//global.fb_bot = {};
+
+
+
+
 /*
  * Authorization Event
  *
@@ -234,6 +317,8 @@ function receivedMessage(event) {
   var messageText = message.text;
   var messageAttachments = message.attachments;
   var quickReply = message.quick_reply;
+
+  
 
   if (isEcho) {
     // Just logging message echoes to console
@@ -835,3 +920,4 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+

@@ -899,7 +899,7 @@ function callSendAPI(messageData) {
     json: messageData
 
   }, function (error, response, body,req) {
-    console.log(reponse);
+    console.log(response);
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;

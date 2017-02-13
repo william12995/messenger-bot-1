@@ -50,7 +50,7 @@ function adduser(event){
     });*/
     console.log("CHECK");
 
-    User.findOne({
+    /*User.findOne({
       id :senderID
     }).exec(function(err,exist){
       if (exist){
@@ -65,7 +65,7 @@ function adduser(event){
           if (err) console.log(err);
 
       });  
-    });
+    });*/
     /*var list = new User();
     list.save({ id: senderID}, function(err, user) {
       if (err) {
@@ -898,8 +898,7 @@ function callSendAPI(messageData) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       console.log(body.recipient_id);
-      var messageId = 1666089510084485;
-      //body.message_id;
+      var messageId = body.message_id;
       console.log(body.message_id);
 
       if (messageId) {

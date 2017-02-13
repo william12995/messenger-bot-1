@@ -61,8 +61,9 @@ function adduser(event){
       new User({
           id : senderID
       }).save(function(err,r){
-          if (err) console.log(err);
           console.log('failed to save');
+          if (err) console.log(err);
+
       });  
     });
     /*var list = new User();

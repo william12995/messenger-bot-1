@@ -49,8 +49,23 @@ function adduser(event){
       else console.log(doc.name + ", password - " + doc.password);
     });*/
     console.log("CHECK");
-    // var list = new User();
-    User.create({ id: senderID}, function(err, user) {
+
+    User.findOne({
+      id :senderID
+    }).exec(function(err,exist){
+      if (exist){
+        console.log('ID have already save');
+        return;
+      }
+
+      new User({
+          id : senderID
+      }).save(function(err,r){
+          if (err) console.log(err);
+      });  
+    });
+    /*var list = new User();
+    list.save({ id: senderID}, function(err, user) {
       if (err) {
         console.log(err);
       }
@@ -58,7 +73,8 @@ function adduser(event){
         console.log("User saved.");
         user.save();
       } 
-    });
+    });*/
+
     // list.save(function(err, doc){
     //   if(err)console.log(err);
     //   else console.log(doc.id + ' saved');
